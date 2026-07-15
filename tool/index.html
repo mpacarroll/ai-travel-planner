@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trip Planner — a free travel agent in your browser</title>
+<meta name="description" content="Plan a trip like a travel agent would. Answer a few questions and get a ready-to-paste request that any AI turns into a day-by-day itinerary — plus a packing and booking checklist. No account, nothing saved.">
+<style>
+  :root{--green:#0f5a34;--green-deep:#0a3d24;--gold:#a9780a;--gold-bright:#c99a2e;--paper:#faf8f0;--card:#fff;--ink:#182219;--muted:#586459;--line:#e4dfce;--serif:"Iowan Old Style",Palatino,Georgia,serif;--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace;color-scheme:light dark;}
+  @media (prefers-color-scheme:dark){:root{--green:#3fa06a;--green-deep:#0c3b23;--gold:#d7b552;--gold-bright:#e6c766;--paper:#141c16;--card:#1a241d;--ink:#e9efe9;--muted:#9aab9e;--line:#2a362d;}}
+  *{box-sizing:border-box}body{margin:0;font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.55;font-size:17px}
+  .band{height:10px;background:linear-gradient(90deg,var(--green),var(--gold-bright),var(--green))}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+  header{padding:34px 0 10px}h1{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.4rem);margin:.2em 0;color:var(--green-deep)}
+  @media(prefers-color-scheme:dark){h1{color:#d7e6db}}
+  .lede{color:var(--muted);max-width:62ch}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:18px}
+  label{display:block;font-weight:600;margin:14px 0 5px;font-size:.95rem}.hint{font-weight:400;color:var(--muted);font-size:.85rem}
+  input,textarea,select{width:100%;padding:11px;border:1.5px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);font:inherit}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:600px){.row{grid-template-columns:1fr}}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+  .chip{border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 13px;font:inherit;font-size:.88rem;cursor:pointer}
+  .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+  @media(prefers-color-scheme:dark){.chip.on{color:#08130c}}
+  .btn{background:var(--green);color:#fff;border:none;padding:12px 20px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer;margin-top:18px}
+  @media(prefers-color-scheme:dark){.btn{color:#08130c}}.btn:hover{background:var(--green-deep)}
+  .out{margin-top:18px;border-top:2px solid var(--gold);padding-top:16px;display:none}.out.on{display:block}
+  .out h3{font-family:var(--serif);margin:.4em 0 .2em}
+  pre{white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:14px;font-family:var(--mono);font-size:.85rem}
+  .copy{background:var(--gold);color:#1a1305;border:none;padding:8px 14px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
+  ul.check{padding-left:0;list-style:none}ul.check li{padding:6px 0 6px 26px;position:relative}ul.check li::before{content:"✓";position:absolute;left:0;color:var(--green)}
+  footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px}a{color:var(--green)}
+</style>
+</head>
+<body>
+<div class="band"></div>
+<div class="wrap">
+  <header>
+    <h1>Trip Planner</h1>
+    <p class="lede">A travel agent asks the right questions, then hands you a plan. This does the asking, then builds a request any AI turns into a <b>day-by-day itinerary</b> tuned to your budget, pace, and taste — plus your packing &amp; booking checklist. Private; nothing is saved or sent.</p>
+  </header>
+  <div class="panel">
+    <div class="row">
+      <div><label>Where to? <span class="hint">(or "help me pick")</span></label><input id="dest" placeholder="Lisbon, Portugal"></div>
+      <div><label>Roughly when & how long</label><input id="when" placeholder="5 days in late May"></div>
+    </div>
+    <div class="row">
+      <div><label>Who's going</label><input id="who" placeholder="me + partner, no kids"></div>
+      <div><label>Total budget <span class="hint">(rough is fine)</span></label><input id="budget" placeholder="~$2,000 excl. flights"></div>
+    </div>
+    <label>Pace</label>
+    <select id="pace"><option>Relaxed — a few things a day, lots of downtime</option><option>Balanced — see the highlights without a death march</option><option>Packed — maximize, I'll rest when I'm home</option></select>
+    <label>What you're into <span class="hint">(tap any)</span></label>
+    <div class="chips" id="tags"></div>
+    <label>Anything to work around? <span class="hint">(mobility, diet, must-do, must-avoid)</span></label>
+    <input id="cons" placeholder="vegetarian; one big hike; skip nightlife">
+    <button class="btn" id="go">Build my trip request</button>
+    <div class="out" id="out"></div>
+  </div>
+  <footer>Free and private. Built by Mick Hume — simple AI tools that work, no hype. Always double-check opening hours, visas, and prices before booking.</footer>
+</div>
+<script>
+const tags=["Food & markets","History & museums","Nature & hikes","Beaches","Art & design","Nightlife","Kid-friendly","Off the beaten path","Photography","Relaxation & spas","Shopping","Local festivals"];
+const tc=document.getElementById('tags');const chosen=new Set();
+tags.forEach(t=>{const c=document.createElement('button');c.className='chip';c.textContent=t;c.onclick=()=>{c.classList.toggle('on');c.classList.contains('on')?chosen.add(t):chosen.delete(t);};tc.appendChild(c);});
+function esc(s){return (s||"").trim();}
+document.getElementById('go').onclick=()=>{
+  const dest=esc(dest_.value)||"[destination]";
+  const prompt=`You are an experienced travel planner. Build me a day-by-day itinerary.\n\nDestination: ${esc(document.getElementById('dest').value)||"help me choose 2-3 options and explain the tradeoffs"}\nDates/length: ${esc(document.getElementById('when').value)||"flexible"}\nTravelers: ${esc(document.getElementById('who').value)||"just me"}\nBudget: ${esc(document.getElementById('budget').value)||"moderate"}\nPace: ${document.getElementById('pace').value}\nInterests: ${[...chosen].join(', ')||"a bit of everything"}\nConstraints: ${esc(document.getElementById('cons').value)||"none"}\n\nGive me:\n1) A day-by-day plan with morning/afternoon/evening, grouped by neighborhood so I'm not zig-zagging.\n2) 2-3 specific food picks per day at my budget.\n3) Rough cost per day and how to save.\n4) One "if it rains" swap per day.\n5) What to book ahead vs. wing it.\nKeep it realistic on travel time. Flag anything that needs a reservation or a visa.`;
+  const o=document.getElementById('out');
+  o.innerHTML=`<h3>Paste this into any AI</h3><pre>${prompt.replace(/</g,'&lt;')}</pre><button class="copy" id="cp">Copy the request</button>
+    <h3 style="margin-top:18px">Booking checklist</h3>
+    <ul class="check"><li>Passport valid 6+ months; check if you need a visa/ETA.</li><li>Flights + first night booked before anything else.</li><li>Travel insurance if the trip cost hurts to lose.</li><li>Screenshot key addresses + confirmations for offline.</li><li>Notify your bank / set up a no-fee travel card.</li></ul>`;
+  o.classList.add('on');o.scrollIntoView({behavior:'smooth',block:'nearest'});
+  document.getElementById('cp').onclick=()=>{navigator.clipboard.writeText(prompt);document.getElementById('cp').textContent="Copied ✓";};
+};
+</script>
+</body>
+</html>
