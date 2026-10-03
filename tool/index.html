@@ -105,12 +105,11 @@ const tc=document.getElementById('tags');const chosen=new Set();
 tags.forEach(t=>{const c=document.createElement('button');c.className='chip';c.textContent=t;c.onclick=()=>{c.classList.toggle('on');c.classList.contains('on')?chosen.add(t):chosen.delete(t);};tc.appendChild(c);});
 function esc(s){return (s||"").trim();}
 document.getElementById('go').onclick=()=>{
-  const dest=esc(dest_.value)||"[destination]";
   const prompt=`You are an experienced travel planner. Build me a day-by-day itinerary.\n\nDestination: ${esc(document.getElementById('dest').value)||"help me choose 2-3 options and explain the tradeoffs"}\nDates/length: ${esc(document.getElementById('when').value)||"flexible"}\nTravelers: ${esc(document.getElementById('who').value)||"just me"}\nBudget: ${esc(document.getElementById('budget').value)||"moderate"}\nPace: ${document.getElementById('pace').value}\nInterests: ${[...chosen].join(', ')||"a bit of everything"}\nConstraints: ${esc(document.getElementById('cons').value)||"none"}\n\nGive me:\n1) A day-by-day plan with morning/afternoon/evening, grouped by neighborhood so I'm not zig-zagging.\n2) 2-3 specific food picks per day at my budget.\n3) Rough cost per day and how to save.\n4) One "if it rains" swap per day.\n5) What to book ahead vs. wing it.\nKeep it realistic on travel time. Flag anything that needs a reservation or a visa.`;
   const o=document.getElementById('out');
   o.innerHTML=`<h3>Paste this into any AI</h3><pre>${prompt.replace(/</g,'&lt;')}</pre><button class="copy" id="cp">Copy the request</button>
     <h3 style="margin-top:18px">Booking checklist</h3>
-    <ul class="check"><li>Passport valid 6+ months; check if you need a visa/ETA.</li><li>Flights + first night booked before anything else.</li><li>Travel insurance if the trip cost hurts to lose.</li><li>Screenshot key addresses + confirmations for offline.</li><li>Notify your bank / set up a no-fee travel card.</li></ul>`;
+    <ul class="check"><li>Passport valid 6+ months; check if you need a visa/ETA.</li><li>Flights + first night booked before anything else.</li><li>Download offline maps and save confirmations offline.</li><li>Screenshot key addresses + confirmations for offline.</li><li>Check that your phone works abroad: an eSIM or a roaming plan.</li></ul>`;
   o.classList.add('on');o.scrollIntoView({behavior:'smooth',block:'nearest'});
   document.getElementById('cp').onclick=()=>{navigator.clipboard.writeText(prompt);document.getElementById('cp').textContent="Copied ✓";};
 };
