@@ -3,72 +3,153 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trip Planner — a free travel agent in your browser</title>
+<title>Trip Planner: a free travel agent in your browser</title>
 <link rel="canonical" href="https://mpacarroll.github.io/ai-travel-planner/tool/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mick's Fair Dinkum AI">
-<meta property="og:title" content="Trip Planner — a free travel agent in your browser">
-<meta property="og:description" content="Plan a trip like a travel agent would. Answer a few questions and get a ready-to-paste request that any AI turns into a day-by-day itinerary — plus a packing and booking checklist. No account, nothing saved.">
+<meta property="og:title" content="Trip Planner: a free travel agent in your browser">
+<meta property="og:description" content="Plan a trip like a travel agent would. Answer a few questions and get a ready-to-paste request that any AI turns into a day-by-day itinerary, plus a packing and booking checklist. No account, nothing saved.">
 <meta property="og:url" content="https://mpacarroll.github.io/ai-travel-planner/tool/">
 <meta property="og:image" content="https://mpacarroll.github.io/ai-travel-planner/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Trip Planner — a free travel agent in your browser">
-<meta name="twitter:description" content="Plan a trip like a travel agent would. Answer a few questions and get a ready-to-paste request that any AI turns into a day-by-day itinerary — plus a packing and booking checklist. No account, nothing saved.">
+<meta name="twitter:title" content="Trip Planner: a free travel agent in your browser">
+<meta name="twitter:description" content="Plan a trip like a travel agent would. Answer a few questions and get a ready-to-paste request that any AI turns into a day-by-day itinerary, plus a packing and booking checklist. No account, nothing saved.">
 <meta name="twitter:image" content="https://mpacarroll.github.io/ai-travel-planner/assets/og-image.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Trip Planner \u2014 a free travel agent in your browser", "description": "Plan a trip like a travel agent would. Answer a few questions and get a ready-to-paste request that any AI turns into a day-by-day itinerary \u2014 plus a packing and booking checklist. No account, nothing saved.", "url": "https://mpacarroll.github.io/ai-travel-planner/tool/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Trip Planner: a free travel agent in your browser", "description": "Plan a trip like a travel agent would. Answer a few questions and get a ready-to-paste request that any AI turns into a day-by-day itinerary, plus a packing and booking checklist. No account, nothing saved.", "url": "https://mpacarroll.github.io/ai-travel-planner/tool/"}</script>
 
-<meta name="description" content="Plan a trip like a travel agent would. Answer a few questions and get a ready-to-paste request that any AI turns into a day-by-day itinerary — plus a packing and booking checklist. No account, nothing saved.">
+<meta name="description" content="Plan a trip like a travel agent would. Answer a few questions and get a ready-to-paste request that any AI turns into a day-by-day itinerary, plus a packing and booking checklist. No account, nothing saved.">
 <style>
-  :root{--green:#0f5a34;--green-deep:#0a3d24;--gold:#a9780a;--gold-bright:#c99a2e;--paper:#faf8f0;--card:#fff;--ink:#182219;--muted:#586459;--line:#e4dfce;--serif:"Iowan Old Style",Palatino,Georgia,serif;--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace;color-scheme:light dark;}
-  @media (prefers-color-scheme:dark){:root{--green:#3fa06a;--green-deep:#0c3b23;--gold:#d7b552;--gold-bright:#e6c766;--paper:#141c16;--card:#1a241d;--ink:#e9efe9;--muted:#9aab9e;--line:#2a362d;}}
-  *{box-sizing:border-box}body{margin:0;font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.55;font-size:17px}
-  .band{height:10px;background:linear-gradient(90deg,var(--green),var(--gold-bright),var(--green))}
-  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
-  header{padding:34px 0 10px}h1{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.4rem);margin:.2em 0;color:var(--green-deep)}
-  @media(prefers-color-scheme:dark){h1{color:#d7e6db}}
-  .lede{color:var(--muted);max-width:62ch}
-  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:18px}
-  label{display:block;font-weight:600;margin:14px 0 5px;font-size:.95rem}.hint{font-weight:400;color:var(--muted);font-size:.85rem}
-  input,textarea,select{width:100%;padding:11px;border:1.5px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);font:inherit}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:600px){.row{grid-template-columns:1fr}}
-  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
-  .chip{border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 13px;font:inherit;font-size:.88rem;cursor:pointer}
-  .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
-  @media(prefers-color-scheme:dark){.chip.on{color:#08130c}}
-  .btn{background:var(--green);color:#fff;border:none;padding:12px 20px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer;margin-top:18px}
-  @media(prefers-color-scheme:dark){.btn{color:#08130c}}.btn:hover{background:var(--green-deep)}
-  .td-next h3{font-family:var(--serif);margin:.2em 0}.td-next p{margin:.5em 0}.td-link{color:var(--green);font-weight:600}
-  .out{margin-top:18px;border-top:2px solid var(--gold);padding-top:16px;display:none}.out.on{display:block}
-  .out h3{font-family:var(--serif);margin:.4em 0 .2em}
-  pre{white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:14px;font-family:var(--mono);font-size:.85rem}
-  .copy{background:var(--gold);color:#1a1305;border:none;padding:8px 14px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
-  ul.check{padding-left:0;list-style:none}ul.check li{padding:6px 0 6px 26px;position:relative}ul.check li::before{content:"✓";position:absolute;left:0;color:var(--green)}
-  footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px}a{color:var(--green)}
+  /* Mick Cairn house look (2026-10-07 mockup, approved 2026-10-08): charcoal and cairn stone carry the page,
+     green is the accent, ochre is the tartan's second thread. Fonts are self-hosted in ../assets/fonts. */
+  @font-face{font-family:"Young Serif";src:url("../assets/fonts/young-serif-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"Atkinson Hyperlegible";src:url("../assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"Atkinson Hyperlegible";src:url("../assets/fonts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+  :root{
+    --char:#2b2e33; --ochre:#d08a2c; --green:#1d6b44; --green-deep:#14502f;
+    --stone:#e7e5e0; --sheet:#fbfaf7; --card:#ffffff; --ink:#1f2124; --muted:#5d5f63; --line:#d6d3cc;
+    --on-char:#efe6d2;
+    --display:"Young Serif",Georgia,"Times New Roman",serif;
+    --sans:"Atkinson Hyperlegible",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    color-scheme:light dark;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --ochre:#e09a3c; --green:#5bb585; --green-deep:#7cc9a0;
+    --stone:#121315; --sheet:#1b1d20; --card:#202327; --ink:#ecebe7; --muted:#a5a6a8; --line:#33363b;
+  }}
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  body{margin:0;font-family:var(--sans);background:var(--sheet);color:var(--ink);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased}
+  a{color:var(--green)}
+  :focus-visible{outline:3px solid var(--ochre);outline-offset:2px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
 
-  /* --- funnel CTA (shared across tools) --- */
-  .mc-cta{margin:34px 0 8px;padding:20px 22px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px}
-  .mc-cta h3{font-family:var(--serif);font-size:1.15rem;margin:0 0 4px;color:var(--green)}
-  .mc-cta p{margin:0 0 12px;color:var(--muted);font-size:.94rem}
-  .mc-form{display:flex;gap:8px;flex-wrap:wrap;margin:0}
-  .mc-form input[type=email]{flex:1;min-width:200px;padding:11px;border:1.5px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);font:inherit}
-  .mc-form button{background:var(--green);color:#fff;border:none;padding:11px 18px;border-radius:9px;font:inherit;font-weight:600;cursor:pointer}
-  .mc-form button:hover{background:var(--green-deep)}
+  /* the cloth: text sits on solid charcoal, the tartan is a selvedge band with nothing on it */
+  .mc-top{background:var(--char);color:var(--on-char)}
+  .mc-top::after{content:"";display:block;height:26px;background-color:var(--char);border-top:2px solid var(--ochre);
+    background-image:
+      repeating-linear-gradient(90deg,rgba(0,0,0,.32) 0 14px,transparent 14px 40px),
+      repeating-linear-gradient(0deg,rgba(0,0,0,.32) 0 14px,transparent 14px 40px),
+      repeating-linear-gradient(90deg,transparent 0 24px,rgba(208,138,44,.8) 24px 28px,transparent 28px 40px),
+      repeating-linear-gradient(0deg,transparent 0 24px,rgba(208,138,44,.8) 24px 28px,transparent 28px 40px),
+      repeating-linear-gradient(90deg,transparent 0 33px,rgba(46,140,92,.9) 33px 35px,transparent 35px 40px)}
+  .mc-bar{display:flex;align-items:center;gap:14px;min-height:64px}
+  .mc-mark{display:flex;align-items:center;gap:10px;color:var(--on-char);text-decoration:none;margin-right:auto}
+  .mc-mark svg{flex:none}
+  .mc-mark b{display:block;font-family:var(--display);font-weight:400;font-size:1.25rem;line-height:1.1}
+  .mc-mark small{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.8}
+  .mc-all{color:var(--on-char);text-decoration:none;font-size:.92rem;opacity:.9}
+  .mc-all:hover{opacity:1;text-decoration:underline}
+
+  header.intro{padding:34px 0 4px}
+  h1{font-family:var(--display);font-weight:400;font-size:clamp(2rem,4.4vw,2.7rem);line-height:1.08;margin:0 0 .25em;color:var(--ink);text-wrap:balance}
+  h3{font-family:var(--display);font-weight:400}
+  .lede{color:var(--muted);max-width:64ch;margin:0}
+  .hint{font-weight:400;color:var(--muted);font-size:.86rem}
+
+  .tabs{display:flex;gap:2px;flex-wrap:wrap;margin:22px 0 0;border-bottom:1px solid var(--line)}
+  .tab{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-1px;color:var(--muted);padding:10px 14px;font:inherit;font-weight:700;font-size:.94rem;cursor:pointer}
+  .tab:hover{color:var(--ink)}
+  .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--green)}
+
+  /* a panel is the form, with its result beside it on wide screens and above it on a phone */
+  .panel{display:none;padding:20px 0 8px}
+  .panel.on{display:flex;flex-direction:column}
+  .panel>.out{order:-1;margin:0 0 18px}
+  .panel>.ex{order:-2;margin-bottom:12px}
+  .panel .btn{align-self:flex-start;justify-self:start}
+  @media (max-width:480px){.tab{padding:10px 9px;font-size:.88rem}}
+  @media (min-width:900px){
+    .panel.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);column-gap:36px;align-content:start}
+    .panel.on>*{grid-column:1}
+    .panel.on>.out{grid-column:2;grid-row:1 / span 40;margin:0;align-self:start}
+  }
+  .ex{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.88rem;color:var(--muted);margin:0 0 4px}
+  .ex .tag,.tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+  .ex .tag{background:color-mix(in srgb,var(--green) 14%,transparent);padding:3px 7px;border-radius:3px}
+  .ex button{background:none;border:0;padding:0;font:inherit;color:var(--ink);font-weight:700;text-decoration:underline;text-decoration-color:var(--green);text-underline-offset:3px;cursor:pointer}
+
+  label{display:block;font-weight:700;margin:14px 0 5px;font-size:.95rem}
+  input,textarea,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:6px;background:var(--stone);color:var(--ink);font:inherit}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--green);outline-offset:1px;border-color:var(--green)}
+  textarea{min-height:84px;resize:vertical}
+  .btn{display:inline-block;background:var(--char);color:var(--on-char);border:0;border-bottom:3px solid var(--green);padding:12px 20px;border-radius:6px;font:inherit;font-weight:700;cursor:pointer;margin-top:18px;text-decoration:none}
+  .btn:hover{background:#1c1e22}
+  @media (prefers-color-scheme:dark){.btn{background:#3a3e44}.btn:hover{background:#464a51}}
+  .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);border-bottom-width:3px}
+
+  .out{display:none;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--green);border-radius:8px;padding:18px 20px;box-shadow:0 14px 34px -24px rgba(20,20,22,.5);min-width:0}
+  .out.on{display:block}
+  .out h3{font-size:1.25rem;margin:.1em 0 .5em}
+  pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--stone);border:1px solid var(--line);border-radius:6px;padding:12px 14px;font-family:var(--mono);font-size:.84rem;margin:0 0 10px}
+  .copy{background:var(--ochre);color:#1d1305;border:0;padding:9px 15px;border-radius:6px;font:inherit;font-weight:700;cursor:pointer}
+  ul.check{padding-left:0;list-style:none;margin:.4em 0 0}
+  ul.check li{padding:6px 0 6px 26px;position:relative}
+  ul.check li::before{content:"\2713";position:absolute;left:0;color:var(--green);font-weight:700}
+
+  /* funnel CTA, shared across tools */
+  .mc-cta{margin:40px 0 8px;padding:24px 0 0;border-top:1px solid var(--line)}
+  .mc-cta h3{font-size:1.25rem;margin:0 0 4px}
+  .mc-cta p{margin:0 0 12px;color:var(--muted);font-size:.95rem}
+  .mc-form{display:flex;gap:8px;flex-wrap:wrap;margin:0;max-width:520px}
+  .mc-form input[type=email]{flex:1;min-width:200px}
+  .mc-form button{background:var(--char);color:var(--on-char);border:0;border-bottom:3px solid var(--green);padding:10px 18px;border-radius:6px;font:inherit;font-weight:700;cursor:pointer}
+  @media (prefers-color-scheme:dark){.mc-form button{background:#3a3e44}}
   .mc-hp{position:absolute;left:-9999px;width:1px;height:1px}
-  .mc-msg{width:100%;margin:8px 0 0;font-size:.9rem;font-weight:600;color:var(--green)}
-  .mc-more{margin:12px 0 0;font-size:.9rem}
-  .mc-more a{color:var(--green);font-weight:600}
+  .mc-msg{width:100%;margin:8px 0 0;font-size:.9rem;font-weight:700;color:var(--green)}
+  .mc-more{margin:12px 0 0;font-size:.95rem}
+  .mc-more a{font-weight:700}
+  footer{color:var(--muted);font-size:.86rem;padding:28px 0 56px}
+
+  .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 12px}
+  @media(max-width:600px){.row{grid-template-columns:minmax(0,1fr)}}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+  .chip{border:1.5px solid var(--line);background:var(--stone);color:var(--ink);border-radius:999px;padding:6px 13px;font:inherit;font-size:.88rem;cursor:pointer}
+  .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+  @media(prefers-color-scheme:dark){.chip.on{color:#0c1a12}}
+  /* TripDeputy cross-link: deliberate, keep it (operator, 2026-10-07) */
+  .td-next{margin:32px 0 0;padding:20px 22px;background:var(--stone);border-radius:8px;max-width:72ch}
+  .td-next h3{font-size:1.25rem;margin:0 0 4px}.td-next p{margin:.5em 0}.td-link{font-weight:700}
+
 </style>
 </head>
 <body>
-<div class="band"></div>
+<header class="mc-top"><div class="wrap mc-bar">
+  <a class="mc-mark" href="https://mpacarroll.github.io/ai-mick/" aria-label="Mick Cairn, all free tools">
+    <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="26" rx="12" ry="4.2" fill="#d08a2c"/><ellipse cx="16" cy="18.6" rx="8.6" ry="3.8" fill="#cfc8b8"/><ellipse cx="15.4" cy="12" rx="5.6" ry="3.1" fill="#d08a2c"/><ellipse cx="16.2" cy="6.6" rx="3.2" ry="2.3" fill="#2e8c5c"/></svg>
+    <span><b>Mick Cairn</b><small>Free tools</small></span>
+  </a>
+  <a class="mc-all" href="https://mpacarroll.github.io/ai-mick/#tools">All tools</a>
+</div></header>
 <div class="wrap">
-  <header>
+  <header class="intro">
     <h1>Trip Planner</h1>
-    <p class="lede">A travel agent asks the right questions, then hands you a plan. This does the asking, then builds a request any AI turns into a <b>day-by-day itinerary</b> tuned to your budget, pace, and taste — plus your packing &amp; booking checklist. Private; nothing is saved or sent.</p>
+    <p class="lede">A travel agent asks the right questions, then hands you a plan. This does the asking, then builds a request any AI turns into a <b>day-by-day itinerary</b> tuned to your budget, pace, and taste, plus your packing and booking checklist. Private; nothing is saved or sent.</p>
   </header>
-  <div class="panel">
+  <div class="panel on" id="trip">
+    <p class="ex"><span class="tag">Example</span>Swap in your own and press Build. <button type="button" id="clear">Clear the example</button></p>
     <div class="row">
       <div><label>Where to? <span class="hint">(or "help me pick")</span></label><input id="dest" placeholder="Lisbon, Portugal"></div>
       <div><label>Roughly when & how long</label><input id="when" placeholder="5 days in late May"></div>
@@ -78,16 +159,16 @@
       <div><label>Total budget <span class="hint">(rough is fine)</span></label><input id="budget" placeholder="~$2,000 excl. flights"></div>
     </div>
     <label>Pace</label>
-    <select id="pace"><option>Relaxed — a few things a day, lots of downtime</option><option>Balanced — see the highlights without a death march</option><option>Packed — maximize, I'll rest when I'm home</option></select>
+    <select id="pace"><option>Relaxed: a few things a day, lots of downtime</option><option>Balanced: see the highlights without a death march</option><option>Packed: maximize, I'll rest when I'm home</option></select>
     <label>What you're into <span class="hint">(tap any)</span></label>
     <div class="chips" id="tags"></div>
     <label>Anything to work around? <span class="hint">(mobility, diet, must-do, must-avoid)</span></label>
     <input id="cons" placeholder="vegetarian; one big hike; skip nightlife">
-    <button class="btn" id="go">Build my trip request</button>
+    <button class="btn" id="go" type="button">Build my trip request</button>
     <div class="out" id="out"></div>
   </div>
 
-  <section class="panel td-next" aria-labelledby="td-next-h">
+  <section class="td-next" aria-labelledby="td-next-h">
     <h3 id="td-next-h">Planning a bigger trip?</h3>
     <p>TripDeputy is the full version of this planner. Send it links and ideas for weeks or months, and when it is time to go it builds the day-by-day plan, the packing list, and booking reminders for your calendar. Free, no account, and your trip stays in your browser.</p>
     <p><a class="td-link" href="https://tripdeputy.com/plan/" rel="noopener">Plan it on TripDeputy &rarr;</a></p>
@@ -104,21 +185,37 @@
     </form>
     <p class="mc-more"><a href="https://mpacarroll.github.io/ai-mick/">See all the free tools &rarr;</a></p>
   </section>
-  <footer>Free and private. Built by Mick Cairn — simple AI tools that work, no hype. Always double-check opening hours, visas, and prices before booking.</footer>
+  <footer>Free and private. Built by Mick Cairn: simple AI tools that work, no hype. Always double-check opening hours, visas, and prices before booking.</footer>
 </div>
 <script>
 const tags=["Food & markets","History & museums","Nature & hikes","Beaches","Art & design","Nightlife","Kid-friendly","Off the beaten path","Photography","Relaxation & spas","Shopping","Local festivals"];
 const tc=document.getElementById('tags');const chosen=new Set();
-tags.forEach(t=>{const c=document.createElement('button');c.className='chip';c.textContent=t;c.onclick=()=>{c.classList.toggle('on');c.classList.contains('on')?chosen.add(t):chosen.delete(t);};tc.appendChild(c);});
+tags.forEach(t=>{const c=document.createElement('button');c.type='button';c.dataset.tag=t;c.className='chip';c.textContent=t;c.onclick=()=>{c.classList.toggle('on');c.classList.contains('on')?chosen.add(t):chosen.delete(t);};tc.appendChild(c);});
 function esc(s){return (s||"").trim();}
-document.getElementById('go').onclick=()=>{
+function build(quiet){
   const prompt=`You are an experienced travel planner. Build me a day-by-day itinerary.\n\nDestination: ${esc(document.getElementById('dest').value)||"help me choose 2-3 options and explain the tradeoffs"}\nDates/length: ${esc(document.getElementById('when').value)||"flexible"}\nTravelers: ${esc(document.getElementById('who').value)||"just me"}\nBudget: ${esc(document.getElementById('budget').value)||"moderate"}\nPace: ${document.getElementById('pace').value}\nInterests: ${[...chosen].join(', ')||"a bit of everything"}\nConstraints: ${esc(document.getElementById('cons').value)||"none"}\n\nGive me:\n1) A day-by-day plan with morning/afternoon/evening, grouped by neighborhood so I'm not zig-zagging.\n2) 2-3 specific food picks per day at my budget.\n3) Rough cost per day and how to save.\n4) One "if it rains" swap per day.\n5) What to book ahead vs. wing it.\nKeep it realistic on travel time. Flag anything that needs a reservation or a visa.`;
   const o=document.getElementById('out');
   o.innerHTML=`<h3>Paste this into any AI</h3><pre>${prompt.replace(/</g,'&lt;')}</pre><button class="copy" id="cp">Copy the request</button>
     <h3 style="margin-top:18px">Booking checklist</h3>
     <ul class="check"><li>Passport valid 6+ months; check if you need a visa/ETA.</li><li>Flights + first night booked before anything else.</li><li>Download offline maps and save confirmations offline.</li><li>Screenshot key addresses + confirmations for offline.</li><li>Check that your phone works abroad: an eSIM or a roaming plan.</li></ul>`;
-  o.classList.add('on');o.scrollIntoView({behavior:'smooth',block:'nearest'});
+  o.classList.add('on');if(!quiet)o.scrollIntoView({behavior:'smooth',block:'nearest'});
   document.getElementById('cp').onclick=()=>{navigator.clipboard.writeText(prompt);document.getElementById('cp').textContent="Copied ✓";};
+}
+document.getElementById('go').onclick=()=>build();
+// Open on a worked example (the page's own placeholders) so the first view shows the result.
+const EXAMPLE={dest:'Lisbon, Portugal',when:'5 days in late May',who:'me + partner, no kids',budget:'~$2,000 excl. flights',cons:'vegetarian; one big hike; skip nightlife'};
+const EXAMPLE_TAGS=['Food & markets','History & museums','Nature & hikes'];
+const setTag=(t,on)=>{const c=tc.querySelector('[data-tag="'+t+'"]');if(!c)return;c.classList.toggle('on',on);on?chosen.add(t):chosen.delete(t);};
+for(const k in EXAMPLE)document.getElementById(k).value=EXAMPLE[k];
+document.getElementById('pace').selectedIndex=1;
+EXAMPLE_TAGS.forEach(t=>setTag(t,true));
+build(true);
+document.getElementById('clear').onclick=()=>{
+  for(const k in EXAMPLE)document.getElementById(k).value='';
+  [...chosen].forEach(t=>setTag(t,false));
+  const o=document.getElementById('out');o.classList.remove('on');o.innerHTML='';
+  document.getElementById('clear').closest('.ex').hidden=true;
+  document.getElementById('dest').focus();
 };
 </script>
 
@@ -130,13 +227,13 @@ document.getElementById('go').onclick=()=>{
     var msg=f.querySelector('.mc-msg'), btn=f.querySelector('button');
     var email=(f.email.value||'').trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.textContent='Please enter a valid email.'; return; }
-    if(f.website.value){ msg.textContent='Thanks — you\u2019re on the list.'; return; }
+    if(f.website.value){ msg.textContent='Thanks, you\u2019re on the list.'; return; }
     btn.disabled=true; msg.textContent='Adding you\u2026';
     fetch('https://join.micksfairdinkumai.com/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({email:email,source:f.dataset.source})})
       .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
       .then(function(d){
-        if(d && d.ok){ msg.textContent='Thanks \u2014 you\u2019re on the list.'; f.email.value=''; }
+        if(d && d.ok){ msg.textContent='Thanks, you\u2019re on the list.'; f.email.value=''; }
         else { msg.textContent=(d && d.error) ? d.error : 'Something went wrong. Try again.'; btn.disabled=false; }
       })
       .catch(function(){ msg.textContent='Could not reach the server. Try again shortly.'; btn.disabled=false; });
