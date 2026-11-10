@@ -132,6 +132,15 @@
   /* TripDeputy cross-link: deliberate, keep it (operator, 2026-10-07) */
   .td-next{margin:32px 0 0;padding:20px 22px;background:var(--stone);border-radius:8px;max-width:72ch}
   .td-next h3{font-size:1.25rem;margin:0 0 4px}.td-next p{margin:.5em 0}.td-link{font-weight:700}
+  /* The brief: carries the answers to TripDeputy, to a file, and back (tool/feeder.js) */
+  .td-notes{margin:.4em 0;padding-left:1.2em;color:var(--muted);font-size:.92rem}
+  .td-notes:empty{display:none}
+  .td-tools .btn{margin-top:8px}
+  .td-tools details{margin-top:12px}
+  .td-tools summary{cursor:pointer;font-weight:700}
+  .td-status{font-weight:700;margin:8px 0 0}
+  .td-status[data-kind="error"]{color:var(--ochre)}
+  .td-status[data-kind="ok"]{color:var(--green)}
 
 </style>
 </head>
@@ -171,7 +180,21 @@
   <section class="td-next" aria-labelledby="td-next-h">
     <h3 id="td-next-h">Planning a bigger trip?</h3>
     <p>TripDeputy is the full version of this planner. Send it links and ideas for weeks or months, and when it is time to go it builds the day-by-day plan, the packing list, and booking reminders for your calendar. Free, no account, and your trip stays in your browser.</p>
-    <p><a class="td-link" href="https://tripdeputy.com/plan/" rel="noopener">Plan it on TripDeputy &rarr;</a></p>
+    <p><a class="td-link" id="td-open" href="https://tripdeputy.com/plan/" rel="noopener">Open this trip in TripDeputy &rarr;</a></p>
+    <p class="hint" id="td-carry">Your answers above go with it, inside the link itself. Nothing is sent from this page, and TripDeputy keeps the trip in your browser.</p>
+    <ul class="td-notes" id="td-notes" aria-live="polite"></ul>
+    <div class="td-tools">
+      <button type="button" class="btn ghost" id="brief-save">Save these answers (.json)</button>
+      <details>
+        <summary>Load saved answers, or a TripDeputy share link</summary>
+        <label for="brief-paste">Paste a TripDeputy share link</label>
+        <textarea id="brief-paste" rows="2" placeholder="https://tripdeputy.com/plan/#trip=t1..."></textarea>
+        <button type="button" class="btn ghost" id="brief-fill">Fill in the answers</button>
+        <label for="brief-file">Or load a saved trip-brief.json</label>
+        <input type="file" id="brief-file" accept=".json,application/json">
+        <p class="td-status" id="brief-status" role="status" aria-live="polite"></p>
+      </details>
+    </div>
   </section>
 
   <section class="mc-cta">
@@ -219,6 +242,7 @@ document.getElementById('clear').onclick=()=>{
 };
 </script>
 
+<script type="module" src="feeder.js"></script>
 <script>
 (function(){
   var f=document.querySelector('.mc-form'); if(!f) return;
