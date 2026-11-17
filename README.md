@@ -32,5 +32,28 @@ changes, the port goes in as its own TripDeputy pull request, not here.
 Maintenance rule: keep the page working and keep the TripDeputy link current. Do not add features;
 anything new belongs in TripDeputy.
 
+## The trip brief and the hand-off to TripDeputy (2026-11-09)
+
+Added for the Mick hub's travel feeder (MH in Michael's 2026-11-09 build brief). It turns this page's
+seven answers into a small structured brief, `tool/brief.js`, which goes three ways:
+
+- **To TripDeputy.** The existing TripDeputy link now carries the answers. TripDeputy's planner
+  already opens `https://tripdeputy.com/plan/#trip=t1.<data>` as the visitor's own trip (trip-deputy
+  `src/lib/share.js`), so nothing changed there. The trip rides after the `#`, which browsers never
+  send to a server, so this page still sends nothing.
+- **To a file.** "Save these answers" downloads `<destination>-brief.json`; loading it fills the form.
+- **Back from TripDeputy.** A TripDeputy share link, pasted or opened onto `/tool/#trip=...`, fills
+  the form. What the form has no field for (saved links, notes, costs, day edits) is named as staying
+  in TripDeputy.
+
+Nothing is guessed. "5 days" is 4 nights, "a week" 7, "weekend" 2; a start date is used only when
+the words give a whole date with a year. Anything vaguer ("late May") goes over as words in the
+constraints, and the page says TripDeputy will start at its usual length.
+
+Tests: `node --test tests/*.test.mjs`. `tests/brief.test.mjs` runs every link through a pinned copy
+of TripDeputy's own decoder and encoder (`tests/tripdeputy/`, refreshed with
+`bash tests/sync-tripdeputy.sh ../trip-deputy`), so a change to TripDeputy's link format fails here
+first. `tests/page.test.mjs` drives the page in Chromium when the `playwright` package is present.
+
 ## License
 MIT, see [LICENSE](LICENSE).
